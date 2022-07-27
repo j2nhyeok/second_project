@@ -23,7 +23,7 @@ class PasswordChange extends JDialog implements MouseListener {
 	public PasswordChange(JFrame owner) {
 		super(owner, true);
 		
-		icon1 = new ImageIcon("src/imgs/마이페이지메인.png");
+		icon1 = new ImageIcon("src/img/마이페이지메인.png");
 		JPanel passwordpnl = new JPanel() {
 			public void paintComponent(Graphics g) {
 				setTitle("Password Change");
@@ -36,7 +36,7 @@ class PasswordChange extends JDialog implements MouseListener {
 		SpringLayout sl_passwordpnl = new SpringLayout();
 		passwordpnl.setLayout(sl_passwordpnl);
 		
-		JButton btnNewButton_2 = new JButton(new ImageIcon("src/imgs/비밀번호변경완료.png"));
+		JButton btnNewButton_2 = new JButton(new ImageIcon("src/img/비밀번호변경완료.png"));
 		sl_passwordpnl.putConstraint(SpringLayout.SOUTH, btnNewButton_2, -43, SpringLayout.SOUTH, passwordpnl);
 		btnNewButton_2.setBorderPainted(false); // 버튼외곽선 없애줌
 		btnNewButton_2.setContentAreaFilled(false); // 버튼 투명하게설정
@@ -44,7 +44,7 @@ class PasswordChange extends JDialog implements MouseListener {
 		passwordpnl.add(btnNewButton_2);
 		
 		
-		JButton btnNewButton_1 = new JButton(new ImageIcon("src/imgs/돌아가기투명.png"));
+		JButton btnNewButton_1 = new JButton(new ImageIcon("src/img/돌아가기투명.png"));
 		sl_passwordpnl.putConstraint(SpringLayout.EAST, btnNewButton_2, -20, SpringLayout.WEST, btnNewButton_1);
 		sl_passwordpnl.putConstraint(SpringLayout.NORTH, btnNewButton_1, 260, SpringLayout.NORTH, passwordpnl);
 		sl_passwordpnl.putConstraint(SpringLayout.SOUTH, btnNewButton_1, -55, SpringLayout.SOUTH, passwordpnl);
@@ -61,12 +61,12 @@ class PasswordChange extends JDialog implements MouseListener {
 		passwordpnl.add(btnNewButton_1);
 		
 		
-		JLabel lblNewLabel_1 = new JLabel(new ImageIcon("src/imgs/기존비밀번호.png"));
+		JLabel lblNewLabel_1 = new JLabel(new ImageIcon("src/img/기존비밀번호.png"));
 		sl_passwordpnl.putConstraint(SpringLayout.WEST, lblNewLabel_1, 78, SpringLayout.WEST, passwordpnl);
 		sl_passwordpnl.putConstraint(SpringLayout.EAST, lblNewLabel_1, -276, SpringLayout.EAST, passwordpnl);
 		passwordpnl.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel(new ImageIcon("src/imgs/변경할비밀번호.png"));
+		JLabel lblNewLabel_2 = new JLabel(new ImageIcon("src/img/변경할비밀번호.png"));
 		sl_passwordpnl.putConstraint(SpringLayout.WEST, lblNewLabel_2, 78, SpringLayout.WEST, passwordpnl);
 		sl_passwordpnl.putConstraint(SpringLayout.SOUTH, lblNewLabel_2, -205, SpringLayout.SOUTH, passwordpnl);
 		passwordpnl.add(lblNewLabel_2);

@@ -23,7 +23,7 @@ class UserWithdrawal extends JDialog implements MouseListener {
 	public UserWithdrawal(JFrame owner) {
 		super(owner, true);
 		
-		icon2 = new ImageIcon("src/imgs/마이페이지메인.png");
+		icon2 = new ImageIcon("src/img/마이페이지메인.png");
 		JPanel unsubscribe = new JPanel() {
 			public void paintComponent(Graphics g) {
 				setTitle("Unsubscribe");
@@ -43,12 +43,12 @@ class UserWithdrawal extends JDialog implements MouseListener {
 		unsubscribe.add(textField_1);
 		textField_1.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel(new ImageIcon("src/imgs/기존비밀번호.png"));
+		JLabel lblNewLabel_1 = new JLabel(new ImageIcon("src/img/기존비밀번호.png"));
 		sl_unsubscribe.putConstraint(SpringLayout.WEST, lblNewLabel_1, 68, SpringLayout.WEST, unsubscribe);
 		unsubscribe.add(lblNewLabel_1);
 		
 		
-		JLabel lblNewLabel = new JLabel(new ImageIcon("src/imgs/기존비밀번호.png"));
+		JLabel lblNewLabel = new JLabel(new ImageIcon("src/img/기존비밀번호.png"));
 		sl_unsubscribe.putConstraint(SpringLayout.WEST, textField_1, 8, SpringLayout.EAST, lblNewLabel);
 		sl_unsubscribe.putConstraint(SpringLayout.SOUTH, lblNewLabel, 0, SpringLayout.SOUTH, textField_1);
 		sl_unsubscribe.putConstraint(SpringLayout.NORTH, lblNewLabel, 0, SpringLayout.NORTH, textField_1);
@@ -57,7 +57,7 @@ class UserWithdrawal extends JDialog implements MouseListener {
 		unsubscribe.add(lblNewLabel);
 		
 		
-		JButton btnNewButton = new JButton(new ImageIcon("src/imgs/돌아가기투명.png"));
+		JButton btnNewButton = new JButton(new ImageIcon("src/img/돌아가기투명.png"));
 		sl_unsubscribe.putConstraint(SpringLayout.WEST, btnNewButton, 206, SpringLayout.WEST, unsubscribe);
 		sl_unsubscribe.putConstraint(SpringLayout.SOUTH, btnNewButton, -70, SpringLayout.SOUTH, unsubscribe);
 		btnNewButton.addActionListener(new ActionListener() { // 돌아가기 버튼
@@ -70,7 +70,7 @@ class UserWithdrawal extends JDialog implements MouseListener {
 		btnNewButton.setContentAreaFilled(false); // 버튼 투명하게설정
 		btnNewButton.setFocusPainted(false);
 		
-		JButton btnNewButton_1 = new JButton(new ImageIcon("src/imgs/구독취소.png"));
+		JButton btnNewButton_1 = new JButton(new ImageIcon("src/img/구독취소.png"));
 		sl_unsubscribe.putConstraint(SpringLayout.NORTH, btnNewButton_1, 31, SpringLayout.SOUTH, lblNewLabel_1);
 		sl_unsubscribe.putConstraint(SpringLayout.SOUTH, btnNewButton_1, -58, SpringLayout.SOUTH, unsubscribe);
 		sl_unsubscribe.putConstraint(SpringLayout.EAST, btnNewButton_1, -18, SpringLayout.WEST, btnNewButton);
@@ -91,6 +91,16 @@ class UserWithdrawal extends JDialog implements MouseListener {
 		sl_unsubscribe.putConstraint(SpringLayout.EAST, textField, -102, SpringLayout.EAST, unsubscribe);
 		unsubscribe.add(textField);
 		textField.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("비밀번호 변경");
+		sl_unsubscribe.putConstraint(SpringLayout.NORTH, lblNewLabel_2, 6, SpringLayout.SOUTH, btnNewButton_1);
+		sl_unsubscribe.putConstraint(SpringLayout.WEST, lblNewLabel_2, 101, SpringLayout.WEST, unsubscribe);
+		unsubscribe.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("회원탈퇴");
+		sl_unsubscribe.putConstraint(SpringLayout.NORTH, lblNewLabel_3, 0, SpringLayout.NORTH, lblNewLabel_2);
+		sl_unsubscribe.putConstraint(SpringLayout.WEST, lblNewLabel_3, 67, SpringLayout.EAST, lblNewLabel_2);
+		unsubscribe.add(lblNewLabel_3);
 		
 		setSize(400,420);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

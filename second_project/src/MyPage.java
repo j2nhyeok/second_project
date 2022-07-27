@@ -3,6 +3,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -12,9 +16,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+import kr.co.greenart.dbutil.DBUtil;
+
 public class MyPage extends JFrame implements MouseListener {
 	private ImageIcon icon;
-	//--------------------------------------------------22-0726;
+
 	private String user_id;
 	
 	public MyPage(String user_id) {
@@ -39,7 +45,7 @@ public class MyPage extends JFrame implements MouseListener {
 		
 		JButton btnNewButton_1 = new JButton(new ImageIcon("src/img/탈퇴할래.png"));
 		sl_pnl.putConstraint(SpringLayout.WEST, btnNewButton_1, 201, SpringLayout.WEST, pnl);
-		sl_pnl.putConstraint(SpringLayout.SOUTH, btnNewButton_1, -33, SpringLayout.SOUTH, pnl);
+		sl_pnl.putConstraint(SpringLayout.SOUTH, btnNewButton_1, -43, SpringLayout.SOUTH, pnl);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -54,9 +60,7 @@ public class MyPage extends JFrame implements MouseListener {
 		
 		
 		JButton btnNewButton = new JButton(new ImageIcon("src/img/패스워드변경.png"));
-		sl_pnl.putConstraint(SpringLayout.WEST, btnNewButton, 95, SpringLayout.WEST, pnl);
-		sl_pnl.putConstraint(SpringLayout.SOUTH, btnNewButton, -45, SpringLayout.SOUTH, pnl);
-		sl_pnl.putConstraint(SpringLayout.EAST, btnNewButton, -36, SpringLayout.WEST, btnNewButton_1);
+		sl_pnl.putConstraint(SpringLayout.EAST, btnNewButton, -54, SpringLayout.WEST, btnNewButton_1);
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -70,22 +74,23 @@ public class MyPage extends JFrame implements MouseListener {
 		pnl.add(btnNewButton);
 		
 		JLabel lblNewLabel = new JLabel(new ImageIcon("src/img/이름아이콘.png"));
+		sl_pnl.putConstraint(SpringLayout.WEST, btnNewButton, 0, SpringLayout.WEST, lblNewLabel);
 		sl_pnl.putConstraint(SpringLayout.NORTH, lblNewLabel, 114, SpringLayout.NORTH, pnl);
 		sl_pnl.putConstraint(SpringLayout.WEST, lblNewLabel, 77, SpringLayout.WEST, pnl);
 		sl_pnl.putConstraint(SpringLayout.EAST, lblNewLabel, -263, SpringLayout.EAST, pnl);
 		pnl.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel(new ImageIcon("src/img/아이디아이콘.png"));
+		sl_pnl.putConstraint(SpringLayout.NORTH, btnNewButton, 34, SpringLayout.SOUTH, lblNewLabel_1);
 		sl_pnl.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 174, SpringLayout.NORTH, pnl);
 		sl_pnl.putConstraint(SpringLayout.WEST, lblNewLabel_1, 77, SpringLayout.WEST, pnl);
 		sl_pnl.putConstraint(SpringLayout.SOUTH, lblNewLabel_1, -143, SpringLayout.SOUTH, pnl);
 		sl_pnl.putConstraint(SpringLayout.EAST, lblNewLabel_1, -263, SpringLayout.EAST, pnl);
-		sl_pnl.putConstraint(SpringLayout.NORTH, btnNewButton, 36, SpringLayout.SOUTH, lblNewLabel_1);
 		sl_pnl.putConstraint(SpringLayout.SOUTH, lblNewLabel, -36, SpringLayout.NORTH, lblNewLabel_1);
 		pnl.add(lblNewLabel_1);
 		
-		//--------------------------------------------------22-0726
-		JLabel label = new JLabel(user_id);
+		//--------------------------------------------------22-0727
+		JLabel label = new JLabel(findUsersName(user_id));
 		sl_pnl.putConstraint(SpringLayout.NORTH, btnNewButton_1, 84, SpringLayout.SOUTH, label);
 		sl_pnl.putConstraint(SpringLayout.NORTH, label, 0, SpringLayout.NORTH, lblNewLabel);
 		sl_pnl.putConstraint(SpringLayout.WEST, label, 6, SpringLayout.EAST, lblNewLabel);
@@ -99,7 +104,19 @@ public class MyPage extends JFrame implements MouseListener {
 		sl_pnl.putConstraint(SpringLayout.SOUTH, lblNewLabel_2, 0, SpringLayout.SOUTH, lblNewLabel_1);
 		sl_pnl.putConstraint(SpringLayout.EAST, lblNewLabel_2, 0, SpringLayout.EAST, label);
 		pnl.add(lblNewLabel_2);
-		//--------------------------------------------------22-0726
+		
+	
+		JLabel lblNewLabel_3 = new JLabel("회원탈퇴");
+		sl_pnl.putConstraint(SpringLayout.NORTH, lblNewLabel_3, 6, SpringLayout.SOUTH, btnNewButton_1);
+		pnl.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("비밀번호 변경");
+		sl_pnl.putConstraint(SpringLayout.NORTH, lblNewLabel_4, 302, SpringLayout.NORTH, pnl);
+		sl_pnl.putConstraint(SpringLayout.SOUTH, btnNewButton, -8, SpringLayout.NORTH, lblNewLabel_4);
+		sl_pnl.putConstraint(SpringLayout.WEST, lblNewLabel_3, 75, SpringLayout.EAST, lblNewLabel_4);
+		sl_pnl.putConstraint(SpringLayout.WEST, lblNewLabel_4, 0, SpringLayout.WEST, lblNewLabel);
+		pnl.add(lblNewLabel_4);
+		//--------------------------------------------------22-0727
 		
 		setLocationRelativeTo(null);// 창이 가운데 나오게
 		setResizable(false);
@@ -107,9 +124,39 @@ public class MyPage extends JFrame implements MouseListener {
 		setSize(400,380);
 		setVisible(true);
 		
-		//--------------------------------------------------22-0726
+		//--------------------------------------------------22-0727
 	}	
-	
+	  private String findUsersName(String user_id) {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String name = "";
+			System.out.println(user_id);
+			try {
+				conn = DBUtil.getConnection();
+				String sql = "SELECT user_name FROM users WHERE user_id = ?";
+
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, user_id);
+
+				rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					name =  rs.getString("user_name");
+
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+
+				DBUtil.closeRS(rs);
+				DBUtil.closeStmt(pstmt);
+				DBUtil.closeConn(conn);
+			}
+			return name;
+
+		}
+		//--------------------------------------------------22-0727
 
 	
 	public void mouseClicked(MouseEvent e) {

@@ -17,7 +17,7 @@ public class OrderByRank {
 		String genre = "";
 		
 			Connection conn = DBUtil.getConnection();
-			String sql = "SELECT title,  artist, genre  FROM musics2 WHERE now_rank = ? ";
+			String sql = "SELECT title,  artist, genre  FROM musics WHERE now_rank = ? ";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, rank);
